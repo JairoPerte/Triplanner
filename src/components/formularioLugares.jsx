@@ -3,10 +3,8 @@ import React, { useState } from "react";
 export default function FormularioItinerario() {
   const [formData, setFormData] = useState({
     nombre: "",
-    fechaInicio: "",
-    fechaFin: "",
+    fechaHora: "",
     notas: "",
-    color: "#000000",
   });
 
   const handleChange = (e) => {
@@ -18,11 +16,12 @@ export default function FormularioItinerario() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Datos del viaje: ", formData);
+    console.log("Datos del lugar: ", formData);
   };
 
   return (
     <div>
+      <h1>Añadir Lugar</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="nombre">Nombre:</label>
         <input
@@ -33,21 +32,12 @@ export default function FormularioItinerario() {
           onChange={handleChange}
         />
         <br />
-        <label htmlFor="fechaIncio">Fecha de inicio: </label>
+        <label htmlFor="fechaHora">Fecha y Hora: </label>
         <input
-          type="date"
-          name="fechaIncio"
-          id="fechaIncio"
-          value={formData.fechaInicio}
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="fechaFin">Fecha de fin: </label>
-        <input
-          type="date"
-          name="fechaFin"
-          id="fechaFin"
-          value={formData.fechaFin}
+          type="datetime"
+          name="fechaHora"
+          id="fechaHora"
+          value={formData.fechaHora}
           onChange={handleChange}
         />
         <br />

@@ -1,10 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './styles/App.css'
+import { useState } from "react";
+import { ViajeProvider } from "./context/contextoViaje";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import Planificador from "./pages/planificador";
+import "./styles/App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  // function App() {
+  //   return (
+  //     <ViajeProvider>
+  //       <Planificador />
+  //     </ViajeProvider>
+  //   );
+  // }
 
   return (
     <>
@@ -29,7 +39,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

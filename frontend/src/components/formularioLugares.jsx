@@ -21,7 +21,6 @@ export default function FormularioItinerario() {
 
   return (
     <div>
-      <h1>Añadir Lugar</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="nombre">Nombre:</label>
         <input

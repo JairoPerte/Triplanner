@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd backend && nodemon src/index.js\" \"cd frontend && vite\"",
+    "build": "cd frontend && vite build",
+    "start": "node backend/src/index.js",
+    "backend": "nodemon backend/src/index.js",
+    "frontend": "cd frontend && vite"
+  }
+}

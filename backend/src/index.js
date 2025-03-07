@@ -1,12 +1,12 @@
 // Code  for mongoose config in backend
 // Filename - backend/index.js
+import env from "dotenv";
+env.config();
 
 // To connect with your mongoDB database
 import mongoose from "mongoose";
 mongoose
-  .connect(
-    "mongodb://admin:admin123@localhost:27017/triplanner?authSource=admin"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 

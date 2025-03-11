@@ -1,12 +1,12 @@
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { ViajeProvider } from "./context/contextoViaje";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./styles/App.css";
-import FormularioItinerario from "./components/FormularioItinerario";
 import Home from "./pages/Home";
-//import Planificador from "./pages/Planificador";
+import Formulario from "./pages/Formulario";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/formulario" element={<Planificador />} />
+          <Route path="/formulario" element={<Formulario />} />
         </Routes>
       </div>
     </Router>

@@ -44,7 +44,7 @@ function App() {
         </div>
 
         <footer className="rounded-top-5 bg-dark text-light">
-          <p>HOla</p>
+          <p>&copy; 2025 Triplanner - Todos los derechos reservados.</p>
         </footer>
       </div>
     </Router>

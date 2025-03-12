@@ -1,11 +1,11 @@
 db = db.getSiblingDB("triplanner");
 
-if (!db.getCollectionNames().includes("viajes")) {
-  db.createCollection("viajes");
+if (!db.getCollectionNames().includes("Viajes")) {
+  db.createCollection("Viajes");
 }
 
-if (!db.getCollectionNames().includes("lugares")) {
-  db.createCollection("lugares");
+if (!db.getCollectionNames().includes("Lugares")) {
+  db.createCollection("Lugares");
 }
 
-print("✅ Base de datos y colecciones creadas con éxito.");
+print("Base de datos y colecciones creadas con éxito.");

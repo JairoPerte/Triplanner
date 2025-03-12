@@ -1,5 +1,6 @@
 import React from "react";
 import FormularioItinerario from "../components/formularioItinerario";
+import "../styles/index.css";
 
 export default function Formulario() {
   return (

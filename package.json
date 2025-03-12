@@ -8,5 +8,8 @@
     "start": "node backend/src/index.js",
     "backend": "node backend/src/index.js",
     "frontend": "cd frontend && npm run dev"
+  },
+  "dependencies": {
+    "react-calendar": "^5.1.0"
   }
 }

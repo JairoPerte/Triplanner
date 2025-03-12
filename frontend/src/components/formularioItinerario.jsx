@@ -76,6 +76,11 @@ export default function FormularioItinerario() {
         </div>
         <br />
 
+        <select name="lugar" id="lugar" className="form-select">
+          {/* Aquí debería haber un bucle recorriendo todos los lugares */}
+          <option value="1">Lugar 1</option>
+        </select>
+        <br />
         <input
           type="color"
           name="color"

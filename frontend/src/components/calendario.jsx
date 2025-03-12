@@ -7,11 +7,7 @@ const Calendario = () => {
   const [date, setDate] = useState(new Date());
 
   // Lista de eventos con fecha
-  const eventos = [
-    { date: "2025-03-15", title: "🏖 Viaje a la playa" },
-    { date: "2025-03-20", title: "⛰ Excursión a la montaña" },
-    { date: "2025-04-01", title: "🏛 Visita a un museo" },
-  ];
+  const eventos = [];
 
   return (
     <div className="calendario-container">

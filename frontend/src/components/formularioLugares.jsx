@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-export default function FormularioItinerario() {
+export default function FormularioLugares() {
   const [formData, setFormData] = useState({
     nombre: "",
-    fechaHora: "",
-    notas: "",
+    pais: "",
+    ciudad: "",
+    direccion: "",
   });
 
   const handleChange = (e) => {
@@ -16,48 +17,70 @@ export default function FormularioItinerario() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Datos del lugar: ", formData);
+    console.log("Datos del viaje: ", formData);
   };
 
   return (
-    <div>
+    <div className="mt-3">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="nombre">Nombre:</label>
-        <input
-          type="text"
-          name="nombre"
-          id="nombre"
-          value={formData.nombre}
-          onChange={handleChange}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            name="nombre"
+            id="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            className="form-control"
+            placeholder=""
+          />
+          <label htmlFor="nombre">Nombre:</label>
+        </div>
         <br />
-        <label htmlFor="fechaHora">Fecha y Hora: </label>
-        <input
-          type="datetime"
-          name="fechaHora"
-          id="fechaHora"
-          value={formData.fechaHora}
-          onChange={handleChange}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            name="pais"
+            id="pais"
+            value={formData.pais}
+            onChange={handleChange}
+            className="form-control"
+            placeholder=""
+          />
+          <label htmlFor="pais">País:</label>
+        </div>
         <br />
-        <label htmlFor="notas">Notas generales: </label>
-        <textarea
-          name="notas"
-          id="notas"
-          value={formData.notas}
-          onChange={handleChange}
-        ></textarea>
+        <div className="form-floating">
+          <input
+            type="text"
+            name="ciudad"
+            id="ciudad"
+            value={formData.ciudad}
+            onChange={handleChange}
+            className="form-control"
+            placeholder=""
+          />
+          <label htmlFor="nombre">Ciudad:</label>
+        </div>
         <br />
-        <label htmlFor="color">Color: </label>
-        <input
-          type="color"
-          name="color"
-          value={formData.color}
-          id="color"
-          onChange={handleChange}
-        />
+        <div className="form-floating">
+          <input
+            type="text"
+            name="direccion"
+            id="direccion"
+            value={formData.direccion}
+            onChange={handleChange}
+            className="form-control"
+            placeholder=""
+          />
+          <label htmlFor="nombre">Direccion:</label>
+        </div>
         <br />
-        <button type="submit">Guardar</button>
+
+        <button type="submit" className="mx-5 btn btn-info mt-4">
+          Guardar
+        </button>
+
+        <br />
       </form>
     </div>
   );

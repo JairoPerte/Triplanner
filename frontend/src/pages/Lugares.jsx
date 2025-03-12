@@ -1,5 +1,5 @@
 import React from "react";
-import FormularioItinerario from "../components/formularioItinerario";
+import FormularioLugares from "../components/formularioLugares";
 
 export default function Formulario() {
   return (
@@ -7,8 +7,8 @@ export default function Formulario() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card mt-4 ">
-            <h1>Organizar un viaje</h1>
-            <FormularioItinerario />
+            <h1>Añadir un Lugar</h1>
+            <FormularioLugares />
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./styles/App.css";
 import Home from "./pages/Home";
+import Lugares from "./pages/Lugares";
 import Formulario from "./pages/Formulario";
 
 function App() {
@@ -26,10 +27,7 @@ function App() {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/otro-formulario"
-                  className="text-light text-decoration-none"
-                >
+                <Link to="/lugares" className="text-light text-decoration-none">
                   Lugares
                 </Link>
               </li>
@@ -41,6 +39,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/formulario" element={<Formulario />} />
+            <Route path="/lugares" element={<Lugares />} />
           </Routes>
         </div>
 

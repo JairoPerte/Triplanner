@@ -3,7 +3,7 @@
     "concurrently": "^9.1.2"
   },
   "scripts": {
-    "dev": "concurrently \"cd backend && nodemon src/index.js\" \"cd frontend && npm run dev\"",
+    "dev": "concurrently \"cd backend && node src/index.js\" \"cd frontend && npm run dev\"",
     "build": "cd frontend && vite build",
     "start": "node backend/src/index.js",
     "backend": "node backend/src/index.js",

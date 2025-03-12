@@ -14,32 +14,40 @@ mongoose
   .then(() => console.log("✅ Conectado a MongoDB"))
   .catch((err) => {
     console.error("❌ Error en la conexión a MongoDB:", err);
-    process.exit(1); // Sale del proceso si hay error
+    process.exit(1);
   });
 
 app.use(express.json());
-app.use(cors()); // Descomentar para evitar problemas con CORS
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("✅ App is Working");
 });
 
-// Ruta de ejemplo
-app.get("/pagina1", async (req, res) => {
+app.get("/viajes", async (req, res) => {
   try {
-    // Lógica para la página 1
-    res.send("Página 1 funcionando");
+    // Mostrar todos los viajes
   } catch (error) {
-    res.status(500).json({ error: "Error en la página 1" });
+    res.status(500).json({ error: "Error al mostrar los viajes" });
+  }
+});
+
+app.get("/lugares", async (req, res) => {
+  try {
+    // Mostrar todos los lugares
+  } catch (error) {
+    res.status(500).json({ error: "Error al mostrar los lugares" });
   }
 });
 
 // Middleware de manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Algo salió mal 😞");
+  res.status(500).send("Algo salió mal");
 });
 
 app.listen(PORT, () =>
-  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`)
+  console.log(
+    `🚀 Servidor corriendo en el puerto ${PORT}\n   -> Local: http:\\localhost:${PORT}`
+  )
 );

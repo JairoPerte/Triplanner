@@ -29,6 +29,15 @@ export default function FormularioItinerario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const fechaInicio = new Date(viaje.fechaInicio);
+    const fechaFin = new Date(viaje.fechaFin);
+
+    if (fechaFin <= fechaInicio) {
+      alert("La fecha de fin debe ser posterior a la fecha de inicio.");
+      return;
+    }
+
     try {
       const backendURL = import.meta.env.VITE_API_HOST;
       const response = await fetch(`${backendURL}/viajes`, {

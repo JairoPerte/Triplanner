@@ -76,22 +76,19 @@ export default function FormularioItinerario() {
         </div>
         <br />
 
-        <div className="d-flex">
-          <label htmlFor="color" className="d-flex my-2">
-            Color:{" "}
-          </label>
-          <input
-            type="color"
-            name="color"
-            value={formData.color}
-            id="color"
-            onChange={handleChange}
-            className="color-input mx-3"
-          />
-          <button type="submit" className="mx-5 btn btn-info">
-            Guardar
-          </button>
-        </div>
+        <input
+          type="color"
+          name="color"
+          value={formData.color}
+          id="color"
+          onChange={handleChange}
+          className="color-input form-control"
+        />
+
+        <button type="submit" className="mx-5 btn btn-info mt-4">
+          Guardar
+        </button>
+
         <br />
       </form>
     </div>

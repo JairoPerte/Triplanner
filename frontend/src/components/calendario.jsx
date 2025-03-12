@@ -31,11 +31,13 @@ const Calendario = () => {
 
   // Función para obtener los eventos en un día específico
   const getEventosParaFecha = (date) => {
-    return viajes.filter((viaje) => {
-      const fechaInicio = new Date(viaje.fechaInicio);
-      const fechaFin = new Date(viaje.fechaFin);
-      return date >= fechaInicio && date <= fechaFin;
-    });
+    return viajes
+      .filter((viaje) => {
+        const fechaInicio = new Date(viaje.fechaInicio);
+        const fechaFin = new Date(viaje.fechaFin);
+        return date >= fechaInicio && date <= fechaFin;
+      })
+      .sort((a, b) => new Date(a.fechaInicio) - new Date(b.fechaInicio));
   };
 
   // Personalizar los días del calendario

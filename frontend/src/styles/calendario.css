@@ -1,13 +1,25 @@
 .custom-calendar {
-  width: 700px !important;
+  width: 800px !important;
   height: auto !important;
   font-size: 1.2rem;
+}
+
+.react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: minmax(auto, 1fr);
 }
 
 .react-calendar__tile {
   position: relative;
   min-height: 100px;
-  height: max-content;
+  height: auto;
+  border: 1px solid rgba(113, 109, 109, 0.44) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
 }
 
 .event {

@@ -54,7 +54,9 @@ const Viaje = mongoose.model("Viaje", viajeSchema);
 // Rutas de Viajes
 app.get("/viajes", async (req, res) => {
   try {
-    const viajes = await Viaje.find().populate("id_lugar"); // Obtener todos los viajes con los lugares asociados
+    const viajes = await Viaje.find()
+      .populate("id_lugar")
+      .sort({ fechaInicio: 1 });
     res.json(viajes);
   } catch (error) {
     res.status(500).json({ error: "Error al mostrar los viajes" });

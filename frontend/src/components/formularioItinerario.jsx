@@ -16,9 +16,38 @@ export default function FormularioItinerario() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos del viaje: ", formData);
+    try {
+      const backendURL = process.env.API_HOST;
+      const response = await fetch(`${backendURL}/viajes`, {
+        // Reemplaza con la URL de tu backend
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Itinerario guardado con éxito!");
+        // Opcional: Limpiar el formulario
+        setFormData({
+          nombre: "",
+          fechaInicio: "",
+          fechaFin: "",
+          notas: "",
+          lugar: "",
+          color: "#000000",
+        });
+      } else {
+        console.error("Error al guardar el itinerario:", response.status);
+        // Manejar el error (mostrar un mensaje al usuario, etc.)
+      }
+    } catch (error) {
+      console.error("Error en la petición:", error);
+      // Manejar el error de red o error del servidor
+    }
   };
 
   return (

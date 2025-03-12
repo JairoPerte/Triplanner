@@ -20,13 +20,24 @@ mongoose
 app.use(express.json());
 app.use(cors());
 
-// Definición de los esquemas y modelos para las colecciones 'viaje' y 'lugar'
-const lugarSchema = new mongoose.Schema({
-  nombre: String,
-  pais: String,
-  ciudad: String,
-  direccion: String,
+// Middleware de manejo de errores
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Algo salió mal");
 });
+
+// Definición de los esquemas y modelos para las colecciones 'viaje' y 'lugar'
+const lugarSchema = new mongoose.Schema(
+  {
+    nombre: String,
+    pais: String,
+    ciudad: String,
+    direccion: String,
+  },
+  {
+    collection: "lugares",
+  }
+);
 
 const viajeSchema = new mongoose.Schema({
   nombre: String,
@@ -226,12 +237,6 @@ app.get("/viajes-lugares/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Error al mostrar el viaje con lugar" });
   }
-});
-
-// Middleware de manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Algo salió mal");
 });
 
 app.listen(PORT, () =>

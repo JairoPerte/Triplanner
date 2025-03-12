@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function FormularioItinerario() {
   const [formData, setFormData] = useState({
@@ -19,9 +19,8 @@ export default function FormularioItinerario() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const backendURL = process.env.API_HOST;
+      const backendURL = process.env.REACT_APP_API_HOST;
       const response = await fetch(`${backendURL}/viajes`, {
-        // Reemplaza con la URL de tu backend
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +30,6 @@ export default function FormularioItinerario() {
 
       if (response.ok) {
         console.log("Itinerario guardado con éxito!");
-        // Opcional: Limpiar el formulario
         setFormData({
           nombre: "",
           fechaInicio: "",
@@ -42,11 +40,9 @@ export default function FormularioItinerario() {
         });
       } else {
         console.error("Error al guardar el itinerario:", response.status);
-        // Manejar el error (mostrar un mensaje al usuario, etc.)
       }
     } catch (error) {
       console.error("Error en la petición:", error);
-      // Manejar el error de red o error del servidor
     }
   };
 
@@ -69,14 +65,14 @@ export default function FormularioItinerario() {
         <div className="form-floating">
           <input
             type="date"
-            name="fechaIncio"
-            id="fechaIncio"
+            name="fechaInicio"
+            id="fechaInicio"
             value={formData.fechaInicio}
             onChange={handleChange}
             className="form-control"
             placeholder=""
           />
-          <label htmlFor="fechaIncio">Fecha de inicio: </label>
+          <label htmlFor="fechaInicio">Fecha de inicio: </label>
         </div>
         <br />
         <div className="form-floating">

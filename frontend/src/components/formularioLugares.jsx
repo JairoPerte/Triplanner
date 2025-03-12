@@ -15,9 +15,32 @@ export default function FormularioLugares() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos del viaje: ", formData);
+    try {
+      const backendURL = import.meta.env.VITE_API_HOST;
+      const response = await fetch(`${backendURL}/lugares`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Itinerario guardado con éxito!");
+        setFormData({
+          nombre: "",
+          pais: "",
+          ciudad: "",
+          direccion: "",
+        });
+      } else {
+        console.error("Error al guardar el lugar:", response.status);
+      }
+    } catch (error) {
+      console.error("Error en la petición:", error);
+    }
   };
 
   return (

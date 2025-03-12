@@ -103,6 +103,47 @@ app.delete("/viajes/:id", async (req, res) => {
   }
 });
 
+app.patch("/viajes/:id", async (req, res) => {
+  try {
+    const { lugarData } = req.body; // Recibimos los datos del lugar a actualizar
+
+    // Primero, actualizamos el lugar con los nuevos datos (si se proveen)
+    const lugar = await Lugar.findById(req.body.id_lugar);
+    if (!lugar) {
+      return res.status(404).json({ error: "Lugar no encontrado" });
+    }
+
+    // Si recibimos datos nuevos para el lugar, los actualizamos
+    if (lugarData) {
+      const { nombre, pais, ciudad, direccion } = lugarData;
+      lugar.nombre = nombre || lugar.nombre;
+      lugar.pais = pais || lugar.pais;
+      lugar.ciudad = ciudad || lugar.ciudad;
+      lugar.direccion = direccion || lugar.direccion;
+
+      await lugar.save(); // Guardamos el lugar actualizado
+    }
+
+    // Ahora asociamos el lugar actualizado al viaje
+    const viaje = await Viaje.findByIdAndUpdate(
+      req.params.id,
+      { id_lugar: lugar._id }, // Asociamos el lugar actualizado al viaje
+      { new: true } // Retorna el viaje actualizado
+    ).populate("id_lugar");
+
+    if (!viaje) {
+      return res.status(404).json({ error: "Viaje no encontrado" });
+    }
+
+    // Devolvemos el viaje actualizado con el lugar asociado
+    res.json(viaje);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error al actualizar el viaje y asociar el lugar" });
+  }
+});
+
 // Rutas de Lugares
 app.get("/lugares", async (req, res) => {
   try {

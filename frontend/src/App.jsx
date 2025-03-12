@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { ViajeProvider } from "./context/contextoViaje";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./styles/App.css";
 import Home from "./pages/Home";
 import Lugares from "./pages/Lugares";
@@ -35,7 +33,7 @@ function App() {
           </nav>
         </div>
 
-        <div className="">
+        <div className="mt-4 mb-4">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/formulario" element={<Formulario />} />

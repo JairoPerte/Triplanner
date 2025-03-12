@@ -10,6 +10,7 @@ export default function FormularioItinerario() {
     color: "#000000",
     id_lugar: "",
   });
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const backendURL = import.meta.env.VITE_API_HOST;
@@ -37,9 +38,8 @@ export default function FormularioItinerario() {
         },
         body: JSON.stringify(viaje),
       });
-
+      
       if (response.ok) {
-        console.log("Itinerario guardado con éxito!");
         setFormData({
           nombre: "",
           fechaInicio: "",
@@ -48,6 +48,7 @@ export default function FormularioItinerario() {
           id_lugar: "",
           color: "#000000",
         });
+        setModalVisible(true);
       } else {
         console.error("Error al guardar el itinerario:", response.status);
       }
@@ -57,8 +58,31 @@ export default function FormularioItinerario() {
   };
 
   return (
-    <div className="mt-3">
-      <form onSubmit={handleSubmit}>
+    <div className="position-relative">
+      {modalVisible && (
+        <>
+          <div className="modal-backdrop show"></div>
+          <div className="modal show d-block" tabIndex={-1}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setModalVisible(false)}
+                    autoFocus
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p className="fs-5 fw-bold text-center">¡Viaje guardado con éxito!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      <form onSubmit={handleSubmit} className={modalVisible ? "pe-none opacity-50" : "mt-3"}>
         <div className="form-floating">
           <input
             type="text"
@@ -67,12 +91,13 @@ export default function FormularioItinerario() {
             value={viaje.nombre}
             onChange={handleChange}
             className="form-control"
-            placeholder=""
             required
           />
           <label htmlFor="nombre">Nombre:</label>
         </div>
-        <br />
+
+        <br/>
+
         <div className="form-floating">
           <input
             type="date"
@@ -81,12 +106,13 @@ export default function FormularioItinerario() {
             value={viaje.fechaInicio}
             onChange={handleChange}
             className="form-control"
-            placeholder=""
             required
           />
           <label htmlFor="fechaInicio">Fecha de inicio: </label>
         </div>
-        <br />
+
+        <br/>
+
         <div className="form-floating">
           <input
             type="date"
@@ -95,12 +121,13 @@ export default function FormularioItinerario() {
             value={viaje.fechaFin}
             onChange={handleChange}
             className="form-control"
-            placeholder=""
             required
           />
           <label htmlFor="fechaFin">Fecha de fin: </label>
         </div>
-        <br />
+
+        <br/>
+
         <div className="form-floating">
           <textarea
             name="notas"
@@ -108,12 +135,12 @@ export default function FormularioItinerario() {
             value={viaje.notas}
             onChange={handleChange}
             className="form-control"
-            placeholder=""
             required
           ></textarea>
           <label htmlFor="notas">Notas generales: </label>
         </div>
-        <br />
+
+        <br/>
 
         <select
           name="id_lugar"
@@ -123,28 +150,29 @@ export default function FormularioItinerario() {
           className="form-select"
           required
         >
+          <option value="null">Seleccione una...</option>
           {lugares.map((lugar) => (
             <option key={lugar._id} value={lugar._id}>
               {lugar.nombre}
             </option>
           ))}
         </select>
-        <br />
+
+        <br/>
+        
         <input
           type="color"
           name="color"
           value={viaje.color}
           id="color"
           onChange={handleChange}
-          className="color-input form-control"
+          className="form-control"
           required
         />
 
         <button type="submit" className="mx-5 btn btn-info mt-4">
           Guardar
         </button>
-
-        <br />
       </form>
     </div>
   );

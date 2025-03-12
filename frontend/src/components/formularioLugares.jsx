@@ -8,6 +8,8 @@ export default function FormularioLugares() {
     direccion: "",
   });
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -28,13 +30,13 @@ export default function FormularioLugares() {
       });
 
       if (response.ok) {
-        console.log("Itinerario guardado con éxito!");
         setFormData({
           nombre: "",
           pais: "",
           ciudad: "",
           direccion: "",
         });
+        setModalVisible(true);
       } else {
         console.error("Error al guardar el lugar:", response.status);
       }
@@ -44,8 +46,30 @@ export default function FormularioLugares() {
   };
 
   return (
-    <div className="mt-3">
-      <form onSubmit={handleSubmit}>
+    <div className="position-relative">
+      {modalVisible && (
+        <>
+          <div className="modal-backdrop show"></div>
+          <div className="modal show d-block" tabIndex={-1}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setModalVisible(false)}
+                    autoFocus
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p className="fs-5 fw-bold text-center">¡Lugar guardado con éxito!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      <form onSubmit={handleSubmit} className={modalVisible ? "pe-none opacity-50" : "mt-3"}>
         <div className="form-floating">
           <input
             type="text"
@@ -97,7 +121,6 @@ export default function FormularioLugares() {
             onChange={handleChange}
             className="form-control"
             placeholder=""
-            required
           />
           <label htmlFor="nombre">Direccion:</label>
         </div>

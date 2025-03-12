@@ -116,7 +116,7 @@ app.delete("/viajes/:id", async (req, res) => {
 
 app.patch("/viajes/:id", async (req, res) => {
   try {
-    const { lugarData } = req.body; // Recibimos los datos del lugar a actualizar
+    const { lugarData } = req.body;
 
     // Primero, actualizamos el lugar con los nuevos datos (si se proveen)
     const lugar = await Lugar.findById(req.body.id_lugar);
@@ -236,6 +236,22 @@ app.get("/viajes-lugares/:id", async (req, res) => {
     res.json(viaje);
   } catch (error) {
     res.status(500).json({ error: "Error al mostrar el viaje con lugar" });
+  }
+});
+
+app.get("/viajes-por-fecha", async (req, res) => {
+  try {
+    const { fecha } = req.query;
+    if (!fecha) {
+      return res.status(400).json({ error: "Se requiere una fecha" });
+    }
+
+    const viajes = await Viaje.find({ fechaInicio: { $gt: fecha } }).populate(
+      "id_lugar"
+    );
+    res.json(viajes);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los viajes por fecha" });
   }
 });
 

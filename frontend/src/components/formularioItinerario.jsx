@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from "react";
 
 export default function FormularioItinerario() {
-  const [formData, setFormData] = useState({
+  const [lugares, setLugares] = useState([]);
+  const [viaje, setFormData] = useState({
     nombre: "",
     fechaInicio: "",
     fechaFin: "",
     notas: "",
     color: "#000000",
+    id_lugar: "",
   });
+
+  useEffect(() => {
+    const backendURL = import.meta.env.VITE_API_HOST;
+    fetch(`${backendURL}/lugares`)
+      .then((res) => res.json())
+      .then((data) => setLugares(data))
+      .catch((error) => console.error("Error al obtener lugares:", error));
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
-      ...formData,
+      ...viaje,
       [e.target.name]: e.target.value,
     });
   };
@@ -19,13 +29,13 @@ export default function FormularioItinerario() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const backendURL = process.env.REACT_APP_API_HOST;
+      const backendURL = import.meta.env.VITE_API_HOST;
       const response = await fetch(`${backendURL}/viajes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(viaje),
       });
 
       if (response.ok) {
@@ -35,7 +45,7 @@ export default function FormularioItinerario() {
           fechaInicio: "",
           fechaFin: "",
           notas: "",
-          lugar: "",
+          id_lugar: "",
           color: "#000000",
         });
       } else {
@@ -54,10 +64,11 @@ export default function FormularioItinerario() {
             type="text"
             name="nombre"
             id="nombre"
-            value={formData.nombre}
+            value={viaje.nombre}
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           />
           <label htmlFor="nombre">Nombre:</label>
         </div>
@@ -67,10 +78,11 @@ export default function FormularioItinerario() {
             type="date"
             name="fechaInicio"
             id="fechaInicio"
-            value={formData.fechaInicio}
+            value={viaje.fechaInicio}
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           />
           <label htmlFor="fechaInicio">Fecha de inicio: </label>
         </div>
@@ -80,10 +92,11 @@ export default function FormularioItinerario() {
             type="date"
             name="fechaFin"
             id="fechaFin"
-            value={formData.fechaFin}
+            value={viaje.fechaFin}
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           />
           <label htmlFor="fechaFin">Fecha de fin: </label>
         </div>
@@ -92,27 +105,39 @@ export default function FormularioItinerario() {
           <textarea
             name="notas"
             id="notas"
-            value={formData.notas}
+            value={viaje.notas}
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           ></textarea>
           <label htmlFor="notas">Notas generales: </label>
         </div>
         <br />
 
-        <select name="lugar" id="lugar" className="form-select">
-          {/* Aquí debería haber un bucle recorriendo todos los lugares */}
-          <option value="1">Lugar 1</option>
+        <select
+          name="id_lugar"
+          id="id_lugar"
+          value={viaje.id_lugar}
+          onChange={handleChange}
+          className="form-select"
+          required
+        >
+          {lugares.map((lugar) => (
+            <option key={lugar._id} value={lugar._id}>
+              {lugar.nombre}
+            </option>
+          ))}
         </select>
         <br />
         <input
           type="color"
           name="color"
-          value={formData.color}
+          value={viaje.color}
           id="color"
           onChange={handleChange}
           className="color-input form-control"
+          required
         />
 
         <button type="submit" className="mx-5 btn btn-info mt-4">

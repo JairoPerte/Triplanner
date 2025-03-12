@@ -55,6 +55,7 @@ export default function FormularioLugares() {
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           />
           <label htmlFor="nombre">Nombre:</label>
         </div>
@@ -68,6 +69,7 @@ export default function FormularioLugares() {
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           />
           <label htmlFor="pais">País:</label>
         </div>
@@ -81,6 +83,7 @@ export default function FormularioLugares() {
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           />
           <label htmlFor="nombre">Ciudad:</label>
         </div>
@@ -94,6 +97,7 @@ export default function FormularioLugares() {
             onChange={handleChange}
             className="form-control"
             placeholder=""
+            required
           />
           <label htmlFor="nombre">Direccion:</label>
         </div>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { ViajeProvider } from "./context/contextoViaje";
 import reactLogo from "./assets/react.svg";
@@ -11,27 +10,36 @@ import Formulario from "./pages/Formulario";
 function App() {
   return (
     <Router>
-      <div>
-        <h1>Mi Aplicación de Viajes</h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Inicio</Link>
+      <div className="d-flex justify-content-between bg-dark py-3 px-5 rounded-5">
+        <Link to="/" className="text-light  text-decoration-none">
+          <h1>Triplanner</h1>
+        </Link>
+        <nav className="mt-3">
+          <ul className="d-flex list-unstyled">
+            <li className="mx-5">
+              <Link
+                to="/formulario"
+                className="text-light  text-decoration-none"
+              >
+                Organizador de Viajes
+              </Link>
             </li>
             <li>
-              <Link to="/formulario">Formulario</Link>
-            </li>
-            <li>
-              <Link to="/otro-formulario">Otro Formulario</Link>
+              <Link
+                to="/otro-formulario"
+                className="text-light  text-decoration-none"
+              >
+                Lugares
+              </Link>
             </li>
           </ul>
         </nav>
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/formulario" element={<Formulario />} />
-        </Routes>
       </div>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/formulario" element={<Formulario />} />
+      </Routes>
     </Router>
   );
 }

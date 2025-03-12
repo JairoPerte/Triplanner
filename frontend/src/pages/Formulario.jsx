@@ -3,8 +3,8 @@ import FormularioItinerario from "../components/FormularioItinerario";
 
 export default function Formulario() {
   return (
-    <div>
-      <h2>Formulario de Itinerario</h2>
+    <div className="card mt-4 ">
+      <h1>Organizar un viaje</h1>
       <FormularioItinerario />
     </div>
   );

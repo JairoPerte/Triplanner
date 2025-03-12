@@ -1,70 +1,45 @@
-// Code  for mongoose config in backend
-// Filename - backend/index.js
-import env from "dotenv";
-env.config();
-
-// To connect with your mongoDB database
+import dotenv from "dotenv";
+import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
+
+dotenv.config({ path: "./.env" });
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Conectar a MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .then(() => console.log("✅ Conectado a MongoDB"))
+  .catch((err) => {
+    console.error("❌ Error en la conexión a MongoDB:", err);
+    process.exit(1); // Sale del proceso si hay error
+  });
 
-// Schema for users of app
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-});
-const User = mongoose.model("users", UserSchema);
-User.createIndexes();
-
-// For backend and express
-import express from "express";
-const app = express();
-import cors from "cors";
-console.log("App listen at port 5000");
 app.use(express.json());
-app.use(cors());
+app.use(cors()); // Descomentar para evitar problemas con CORS
 
-app.get("/", (req, resp) => {
-  resp.send("App is Working");
-  // You can check backend is working or not by
-  // entering http://loacalhost:5000
-
-  // If you see App is working means
-  // backend working properly
+app.get("/", (req, res) => {
+  res.send("✅ App is Working");
 });
 
-app.post("/register", async (req, resp) => {
+// Ruta de ejemplo
+app.get("/pagina1", async (req, res) => {
   try {
-    const user = new User(req.body);
-    let result = await user.save();
-    result = result.toObject();
-    if (result) {
-      delete result.password;
-      resp.send(req.body);
-      console.log(result);
-    } else {
-      console.log("User already register");
-    }
-  } catch (e) {
-    resp.send("Something Went Wrong: " + e.message);
+    // Lógica para la página 1
+    res.send("Página 1 funcionando");
+  } catch (error) {
+    res.status(500).json({ error: "Error en la página 1" });
   }
 });
 
-app.get("/pagina1", async (req, resp) => {
-  // Hacer la lógica para mostrar la página 1
+// Middleware de manejo de errores
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Algo salió mal 😞");
 });
 
-app.listen(5000);
+app.listen(PORT, () =>
+  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`)
+);

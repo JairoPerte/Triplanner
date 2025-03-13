@@ -106,6 +106,34 @@ export default function Formulario() {
     }
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    try {
+      const backendURL = import.meta.env.VITE_API_HOST;
+      const response = await fetch(
+        `${backendURL}/lugares/${lugarSeleccionado._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ favorito: 1 }),
+        }
+      );
+      if (response.ok) {
+        // Actualizar el estado sin recargar la página
+        setLugares((prevLugares) =>
+          prevLugares.filter((lugar) => lugar._id !== lugarSeleccionado._id)
+        );
+      } else {
+        console.error("Error al eliminar usuario");
+      }
+    } catch (error) {
+      console.error("Error en la petición:", error);
+    }
+  };
+
   return (
     <div className="container vista-lugares">
       <div className="d-flex justify-content-between">
@@ -152,27 +180,41 @@ export default function Formulario() {
                   {lugar.pais} - {lugar.ciudad} - {lugar.direccion}
                 </p>
 
-                <form onSubmit={handleSubmit}>
-                  <input type="hidden" name="favorito" value="1" required />
-                  <button
-                    onClick={() => toggleFavorito(lugar)}
-                    className="btn btn-light"
-                  >
-                    <i
-                      className={`bi ${
-                        lugar.favorito === 1 ? "bi-heart-fill" : "bi-heart"
-                      }`}
-                      style={{ fontSize: "1.5rem", color: "#e74c3c" }}
-                    ></i>
-                  </button>
-                </form>
+                <div className="d-flex gap-2">
+                  <form onSubmit={handleSubmit}>
+                    <input type="hidden" name="favorito" value="1" required />
+                    <button
+                      onClick={() => toggleFavorito(lugar)}
+                      className="btn btn-light"
+                    >
+                      <i
+                        className={`bi ${
+                          lugar.favorito === 1 ? "bi-heart-fill" : "bi-heart"
+                        }`}
+                        style={{ fontSize: "1.5rem", color: "#e74c3c" }}
+                      ></i>
+                    </button>
+                  </form>
+                  <form onSubmit={handleDelete}>
+                    <input type="hidden" name="favorito" value="1" required />
+                    <button
+                      className="btn btn-light"
+                      onClick={() => setLugarSeleccionado(lugar)}
+                    >
+                      <i
+                        className="bi bi-trash-fill"
+                        style={{ fontSize: "1.5rem", color: "#aaa" }}
+                      ></i>
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <FormularioLugares />
+      <FormularioLugares setLugares={setLugares} />
     </div>
   );
 }

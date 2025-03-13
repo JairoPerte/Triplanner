@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function FormularioLugares() {
+export default function FormularioLugares({ setLugares }) {
   const [formData, setFormData] = useState({
     nombre: "",
     pais: "",
@@ -15,9 +15,6 @@ export default function FormularioLugares() {
     if (modalVisible) {
       const timer = setTimeout(() => {
         setModalVisible(false);
-        setTimeout(() => {
-          window.location.reload();
-        });
       }, 1000);
 
       return () => clearTimeout(timer);
@@ -44,6 +41,10 @@ export default function FormularioLugares() {
       });
 
       if (response.ok) {
+        const nuevoLugar = await response.json();
+
+        setLugares((prevLugares) => [nuevoLugar, ...prevLugares]);
+
         setFormData({
           nombre: "",
           pais: "",

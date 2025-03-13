@@ -1,4 +1,8 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function Proximo({ viajes, eliminarViaje }) {
+  const navigate = useNavigate();
   const hoy = new Date();
   //ignorar la hora solo la fecha
   hoy.setHours(0, 0, 0, 0);
@@ -8,6 +12,10 @@ export default function Proximo({ viajes, eliminarViaje }) {
     const fechaInicio = new Date(viaje.fechaInicio);
     return fechaInicio >= hoy;
   });
+
+  const editar = (id) => {
+    navigate(`/editarViaje/${id}`);
+  };
 
   return (
     <div className="container mt-4">
@@ -31,14 +39,27 @@ export default function Proximo({ viajes, eliminarViaje }) {
                 }}
               ></span>
               <div>
-                <strong>{viaje.nombre}</strong> - {viaje.id_lugar?.nombre || "Sin lugar"} {"| " + (viaje.id_lugar?.pais || "")} 
+                <strong>{viaje.nombre}</strong> -{" "}
+                {viaje.id_lugar?.nombre || "Sin lugar"}{" "}
+                {"| " + (viaje.id_lugar?.pais || "")}
                 <br />
                 <small>Fecha Inicio: {
                   // Formatamos la fecha a DD/MM/YYYY
                   new Date(viaje.fechaInicio).toLocaleDateString("es-ES")
                 }</small>
                 <br />
-                <button class="btn btn-danger btn-sm" onClick={() => eliminarViaje(viaje._id)}>Eliminar</button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => eliminarViaje(viaje._id)}
+                >
+                  Eliminar
+                </button>
+                <button
+                  onClick={() => editar(viaje._id)}
+                  className="btn btn-info btn-sm mx-3"
+                >
+                  Editar
+                </button>
               </div>
             </li>
           ))}

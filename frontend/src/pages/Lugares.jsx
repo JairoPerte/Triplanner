@@ -42,6 +42,33 @@ export default function Formulario() {
     }
   }, [lugares]);
 
+  const toggleFavorito = (lugar) => {
+    const newFavorito = lugar.favorito === 1 ? 0 : 1;
+
+    //Actualizar estado localmente
+    setLugares((prevLugares) =>
+      prevLugares.map((l) =>
+        l._id === lugar._id ? { ...l, favorito: newFavorito } : l
+      )
+    );
+
+    //Hacer el request al backend para actualizar el estado
+    const backendURL = import.meta.env.VITE_API_HOST;
+    fetch(`${backendURL}/lugares/${lugar._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ favorito: newFavorito }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Error al actualizar el lugar:", response.status);
+        }
+      })
+      .catch((error) => console.error("Error en la petición:", error));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!lugarSeleccionado) {
@@ -120,15 +147,23 @@ export default function Formulario() {
               className="accordion-collapse collapse"
               data-bs-parent="#acordeon"
             >
-              <div className="accordion-body">
-                {lugar.pais} - {lugar.ciudad} - {lugar.direccion}
+              <div className="accordion-body d-flex justify-content-between">
+                <p className="mt-3">
+                  {lugar.pais} - {lugar.ciudad} - {lugar.direccion}
+                </p>
+
                 <form onSubmit={handleSubmit}>
                   <input type="hidden" name="favorito" value="1" required />
                   <button
-                    type="submit"
-                    onClick={() => setLugarSeleccionado(lugar)}
+                    onClick={() => toggleFavorito(lugar)}
+                    className="btn btn-light"
                   >
-                    Fav
+                    <i
+                      className={`bi ${
+                        lugar.favorito === 1 ? "bi-heart-fill" : "bi-heart"
+                      }`}
+                      style={{ fontSize: "1.5rem", color: "#e74c3c" }}
+                    ></i>
                   </button>
                 </form>
               </div>
@@ -137,36 +172,7 @@ export default function Formulario() {
         ))}
       </div>
 
-      <div
-        className="modal fade"
-        id="modal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Añadir un Lugar
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Cerrar"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="justify-content-center">
-                <div className="card mt-4 ">
-                  <FormularioLugares />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FormularioLugares />
     </div>
   );
 }

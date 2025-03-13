@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function FormularioLugares() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,19 @@ export default function FormularioLugares() {
   });
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (modalVisible) {
+      const timer = setTimeout(() => {
+        setModalVisible(false);
+        setTimeout(() => {
+          window.location.reload();
+        });
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [modalVisible]);
 
   const handleChange = (e) => {
     setFormData({
@@ -49,9 +62,110 @@ export default function FormularioLugares() {
 
   return (
     <div className="position-relative">
+      <div
+        className="modal fade"
+        id="modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Añadir un Lugar
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Cerrar"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <div className="justify-content-center">
+                <div className="card mt-4 ">
+                  <form
+                    onSubmit={handleSubmit}
+                    className={modalVisible ? "pe-none opacity-50" : "mt-3"}
+                  >
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        value={formData.nombre}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder=""
+                        required
+                      />
+                      <label htmlFor="nombre">Nombre:</label>
+                    </div>
+                    <br />
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        name="pais"
+                        id="pais"
+                        value={formData.pais}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder=""
+                        required
+                      />
+                      <label htmlFor="pais">País:</label>
+                    </div>
+                    <br />
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        name="ciudad"
+                        id="ciudad"
+                        value={formData.ciudad}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder=""
+                      />
+                      <label htmlFor="nombre">Ciudad:</label>
+                    </div>
+                    <br />
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        name="direccion"
+                        id="direccion"
+                        value={formData.direccion}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder=""
+                      />
+                      <label htmlFor="nombre">Direccion:</label>
+                    </div>
+                    <br />
+
+                    <input type="hidden" name="favorito" value="0" required />
+
+                    <button
+                      type="submit"
+                      data-bs-dismiss="modal"
+                      aria-label="Cerrar"
+                      className="mx-5 btn btn-info mt-4"
+                    >
+                      Guardar
+                    </button>
+
+                    <br />
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {modalVisible && (
         <>
-          <div className="modal-backdrop show"></div>
           <div className="modal show d-block" tabIndex={-1}>
             <div className="modal-dialog">
               <div className="modal-content">
@@ -73,73 +187,6 @@ export default function FormularioLugares() {
           </div>
         </>
       )}
-      <form
-        onSubmit={handleSubmit}
-        className={modalVisible ? "pe-none opacity-50" : "mt-3"}
-      >
-        <div className="form-floating">
-          <input
-            type="text"
-            name="nombre"
-            id="nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-            className="form-control"
-            placeholder=""
-            required
-          />
-          <label htmlFor="nombre">Nombre:</label>
-        </div>
-        <br />
-        <div className="form-floating">
-          <input
-            type="text"
-            name="pais"
-            id="pais"
-            value={formData.pais}
-            onChange={handleChange}
-            className="form-control"
-            placeholder=""
-            required
-          />
-          <label htmlFor="pais">País:</label>
-        </div>
-        <br />
-        <div className="form-floating">
-          <input
-            type="text"
-            name="ciudad"
-            id="ciudad"
-            value={formData.ciudad}
-            onChange={handleChange}
-            className="form-control"
-            placeholder=""
-          />
-          <label htmlFor="nombre">Ciudad:</label>
-        </div>
-        <br />
-        <div className="form-floating">
-          <input
-            type="text"
-            name="direccion"
-            id="direccion"
-            value={formData.direccion}
-            onChange={handleChange}
-            className="form-control"
-            placeholder=""
-          />
-          <label htmlFor="nombre">Direccion:</label>
-        </div>
-        <br />
-
-        <input type="hidden" name="favorito" value="0" required />
-
-        <button type="submit" className="mx-5 btn btn-info mt-4">
-          Guardar
-        </button>
-
-        <br />
-      </form>
     </div>
   );
 }

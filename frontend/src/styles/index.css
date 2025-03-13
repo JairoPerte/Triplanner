@@ -29,6 +29,8 @@ body.dark-mode  {
 
 .custom-calendar{
   border-radius: 15px;
+  border: none;
+  box-shadow: 0px 0px 5px 0.2px #656565;
 }
 
 .react-calendar__month-view__days{

@@ -172,3 +172,7 @@ body.dark-mode .list-group-item{
   color: white;
   border-color: #363636;
 }
+
+body.dark-mode .modal-content{
+  background-color: #121212;
+}

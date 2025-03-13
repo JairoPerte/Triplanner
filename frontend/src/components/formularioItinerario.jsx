@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function FormularioItinerario() {
+  const navigate = useNavigate();
   const [lugares, setLugares] = useState([]);
   const [viaje, setFormData] = useState({
     nombre: "",
@@ -11,6 +13,17 @@ export default function FormularioItinerario() {
     id_lugar: "",
   });
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (modalVisible) {
+      const timer = setTimeout(() => {
+        setModalVisible(false);
+        navigate("/");
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [modalVisible]);
 
   useEffect(() => {
     const backendURL = import.meta.env.VITE_API_HOST;

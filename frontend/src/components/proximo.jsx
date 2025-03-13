@@ -1,4 +1,8 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function Proximo({ viajes, eliminarViaje }) {
+  const navigate = useNavigate();
   const hoy = new Date();
   //ignorar la hora solo la fecha
   hoy.setHours(0, 0, 0, 0);
@@ -9,6 +13,10 @@ export default function Proximo({ viajes, eliminarViaje }) {
     return fechaInicio >= hoy;
   });
 
+  const handleButtonClick = () => {
+    navigate("/editarViaje"); // Redirige a la página "about"
+  };
+
   return (
     <div className="container mt-4">
       <h2>Lista de Viajes Próximos</h2>
@@ -17,7 +25,10 @@ export default function Proximo({ viajes, eliminarViaje }) {
       ) : (
         <ul className="list-group">
           {viajesFiltrados.map((viaje) => (
-            <li key={viaje._id} className="list-group-item d-flex align-items-center">
+            <li
+              key={viaje._id}
+              className="list-group-item d-flex align-items-center"
+            >
               <span
                 className="me-3"
                 style={{
@@ -29,11 +40,22 @@ export default function Proximo({ viajes, eliminarViaje }) {
                 }}
               ></span>
               <div>
-                <strong>{viaje.nombre}</strong> - {viaje.id_lugar?.nombre || "Sin lugar"} {"| " + (viaje.id_lugar?.pais || "")} 
+                <strong>{viaje.nombre}</strong> -{" "}
+                {viaje.id_lugar?.nombre || "Sin lugar"}{" "}
+                {"| " + (viaje.id_lugar?.pais || "")}
                 <br />
-                <small>Fecha Inicio: {new Date(viaje.fechaInicio).toLocaleDateString("es-ES")}</small>
+                <small>
+                  Fecha Inicio:{" "}
+                  {new Date(viaje.fechaInicio).toLocaleDateString("es-ES")}
+                </small>
                 <br />
-                <button class="btn btn-danger btn-sm" onClick={() => eliminarViaje(viaje._id)}>Eliminar</button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  onClick={() => eliminarViaje(viaje._id)}
+                >
+                  Eliminar
+                </button>
+                <button onClick={handleButtonClick}>Editar</button>
               </div>
             </li>
           ))}

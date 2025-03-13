@@ -5,6 +5,7 @@ import "./styles/App.css";
 import Home from "./pages/Home";
 import Lugares from "./pages/Lugares";
 import Formulario from "./pages/Formulario";
+import EditarViaje from "./pages/EditarViaje";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -60,6 +61,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/formulario" element={<Formulario />} />
             <Route path="/lugares" element={<Lugares />} />
+            <Route path="/editarViaje" element={<EditarViaje />} />
           </Routes>
         </div>
 

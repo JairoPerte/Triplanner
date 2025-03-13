@@ -22,7 +22,36 @@ footer{
   min-height: 70vh;
 }
 
-.dark-mode {
-  background-color: #121212;
+body.dark-mode  {
+  background-color: #1e1e1e;
   color: #e0e0e0;
+}
+
+.custom-calendar{
+  border-radius: 15px;
+}
+
+.react-calendar__month-view__days{
+  gap: 4px;
+}
+
+.react-calendar__tile{
+  border-radius: 15px;
+}
+
+body.dark-mode .custom-calendar{
+  background-color: #121212;
+  color: white;
+}
+
+body.dark-mode abbr{
+  color: white;
+}
+
+body.dark-mode .react-calendar__month-view__days__day--weekend abbr{
+  color: rgb(244, 103, 103);
+}
+
+body.dark-mode .react-calendar__tile{
+  background-color: #151515;
 }

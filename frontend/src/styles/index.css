@@ -54,7 +54,7 @@ body.dark-mode .custom-calendar{
   color: white;
 }
 
-body.dark-mode .custom-calendar abbr{
+body.dark-mode .react-calendar__tile{
   color: white;
 }
 

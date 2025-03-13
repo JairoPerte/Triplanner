@@ -13,8 +13,8 @@ export default function Proximo({ viajes, eliminarViaje }) {
     return fechaInicio >= hoy;
   });
 
-  const handleButtonClick = () => {
-    navigate("/editarViaje"); // Redirige a la página "about"
+  const editar = (id) => {
+    navigate(`/editarViaje/${id}`);
   };
 
   return (
@@ -50,12 +50,17 @@ export default function Proximo({ viajes, eliminarViaje }) {
                 </small>
                 <br />
                 <button
-                  class="btn btn-danger btn-sm"
+                  className="btn btn-danger btn-sm"
                   onClick={() => eliminarViaje(viaje._id)}
                 >
                   Eliminar
                 </button>
-                <button onClick={handleButtonClick}>Editar</button>
+                <button
+                  onClick={() => editar(viaje._id)}
+                  className="btn btn-info btn-sm mx-3"
+                >
+                  Editar
+                </button>
               </div>
             </li>
           ))}

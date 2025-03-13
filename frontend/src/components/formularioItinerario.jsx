@@ -6,8 +6,8 @@ import notificationFile from "../assets/audio/notification.mp3";
 
 export default function FormularioItinerario() {
   //Creamos los audios de la Api
-  const error=new Audio(errorFile);
-  const not=new Audio(notificationFile);
+  const error = new Audio(errorFile);
+  const not = new Audio(notificationFile);
 
   const navigate = useNavigate();
   const [lugares, setLugares] = useState([]);
@@ -22,6 +22,7 @@ export default function FormularioItinerario() {
   });
   const [modalVisible, setModalVisible] = useState(false);
 
+  //Cerramos el aviso al segundo
   useEffect(() => {
     if (modalVisible) {
       const timer = setTimeout(() => {
@@ -33,6 +34,7 @@ export default function FormularioItinerario() {
     }
   }, [modalVisible]);
 
+  //Obtenemos lugares para el select
   useEffect(() => {
     const backendURL = import.meta.env.VITE_API_HOST;
     fetch(`${backendURL}/lugares`)
@@ -41,6 +43,7 @@ export default function FormularioItinerario() {
       .catch((error) => console.error("Error al obtener lugares:", error));
   }, []);
 
+  //Controlamos los cambios
   const handleChange = (e) => {
     setFormData({
       ...viaje,
@@ -48,6 +51,7 @@ export default function FormularioItinerario() {
     });
   };
 
+  //Crear viaje
   const handleSubmit = async (e) => {
     e.preventDefault();
 

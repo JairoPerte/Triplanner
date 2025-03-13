@@ -8,6 +8,7 @@ export default function Formulario() {
   const [lugarSeleccionado, setLugarSeleccionado] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  //Obtenemos los lugares
   useEffect(() => {
     const backendURL = import.meta.env.VITE_API_HOST;
     fetch(`${backendURL}/lugares`)
@@ -16,6 +17,7 @@ export default function Formulario() {
       .catch((error) => console.error("Error al obtener lugares:", error));
   }, []);
 
+  //Filtro de favoritos
   useEffect(() => {
     let btnFavoritos = document.getElementById("favoritos");
     let btnTodos = document.getElementById("todos");
@@ -69,6 +71,7 @@ export default function Formulario() {
       .catch((error) => console.error("Error en la petición:", error));
   };
 
+  //Control de crear lugar
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!lugarSeleccionado) {
@@ -81,7 +84,7 @@ export default function Formulario() {
       const response = await fetch(
         `${backendURL}/lugares/${lugarSeleccionado._id}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -106,6 +109,7 @@ export default function Formulario() {
     }
   };
 
+  //Control de eliminar lugar
   const handleDelete = async (e) => {
     e.preventDefault();
 

@@ -61,7 +61,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/formulario" element={<Formulario />} />
             <Route path="/lugares" element={<Lugares />} />
-            <Route path="/editarViaje" element={<EditarViaje />} />
+            <Route path="/editarViaje/:id" element={<EditarViaje />} />
           </Routes>
         </div>
 

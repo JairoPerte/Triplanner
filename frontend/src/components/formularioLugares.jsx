@@ -6,8 +6,8 @@ import notificationFile from "../assets/audio/notification.mp3";
 
 export default function FormularioLugares({ setLugares }) {
   //Creamos los audios de la Api
-  const error=new Audio(errorFile);
-  const not=new Audio(notificationFile);
+  const error = new Audio(errorFile);
+  const not = new Audio(notificationFile);
 
   const [formData, setFormData] = useState({
     nombre: "",
@@ -19,6 +19,7 @@ export default function FormularioLugares({ setLugares }) {
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  //Cerramos el modal después de 1 segundo
   useEffect(() => {
     if (modalVisible) {
       const timer = setTimeout(() => {
@@ -29,6 +30,7 @@ export default function FormularioLugares({ setLugares }) {
     }
   }, [modalVisible]);
 
+  //Controlamos los cambios
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -36,6 +38,7 @@ export default function FormularioLugares({ setLugares }) {
     });
   };
 
+  //Creación del lugar
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,6 +54,7 @@ export default function FormularioLugares({ setLugares }) {
       if (response.ok) {
         const nuevoLugar = await response.json();
 
+        //Actulización dinámica
         setLugares((prevLugares) => [nuevoLugar, ...prevLugares]);
 
         setFormData({
@@ -60,6 +64,8 @@ export default function FormularioLugares({ setLugares }) {
           direccion: "",
           favorito: 0,
         });
+
+        //Mostramos mensaje
         setModalVisible(true);
         not.play();
       } else {

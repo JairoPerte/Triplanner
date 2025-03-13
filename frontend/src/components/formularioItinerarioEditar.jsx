@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function FormularioItinerario() {
   const navigate = useNavigate();
+  // ID desde URL
+  const { id } = useParams();
   const [lugares, setLugares] = useState([]);
   const [fechaError, setFechaError] = useState(false);
   const [viaje, setFormData] = useState({
@@ -15,17 +17,7 @@ export default function FormularioItinerario() {
   });
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    if (modalVisible) {
-      const timer = setTimeout(() => {
-        setModalVisible(false);
-        navigate("/");
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [modalVisible]);
-
+  // Cargar lugares
   useEffect(() => {
     const backendURL = import.meta.env.VITE_API_HOST;
     fetch(`${backendURL}/lugares`)
@@ -34,6 +26,28 @@ export default function FormularioItinerario() {
       .catch((error) => console.error("Error al obtener lugares:", error));
   }, []);
 
+  // Cargamos el itinerario
+  useEffect(() => {
+    if (id) {
+      const backendURL = import.meta.env.VITE_API_HOST;
+      fetch(`${backendURL}/viajes/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // Asegúrate de que las fechas están en formato YYYY-MM-DD
+          setFormData({
+            nombre: data.nombre,
+            fechaInicio: data.fechaInicio.slice(0, 10),
+            fechaFin: data.fechaFin.slice(0, 10),
+            notas: data.notas,
+            color: data.color || "#000000",
+            id_lugar: data.id_lugar,
+          });
+        })
+        .catch((error) => console.error("Error al cargar itinerario:", error));
+    }
+  }, [id]);
+
+  // Actualizar el estado del formulario
   const handleChange = (e) => {
     setFormData({
       ...viaje,
@@ -41,6 +55,7 @@ export default function FormularioItinerario() {
     });
   };
 
+  // Enviar el formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -57,8 +72,9 @@ export default function FormularioItinerario() {
 
     try {
       const backendURL = import.meta.env.VITE_API_HOST;
-      const response = await fetch(`${backendURL}/viajes`, {
-        method: "POST",
+
+      const response = await fetch(`${backendURL}/viajes/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -75,6 +91,10 @@ export default function FormularioItinerario() {
           color: "#000000",
         });
         setModalVisible(true);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       } else {
         console.error("Error al guardar el itinerario:", response.status);
       }
@@ -101,7 +121,7 @@ export default function FormularioItinerario() {
                 </div>
                 <div className="modal-body">
                   <p className="fs-5 fw-bold text-center">
-                    ¡Viaje guardado con éxito!
+                    ¡{id ? "Viaje actualizado" : "Viaje guardado"} con éxito!
                   </p>
                 </div>
               </div>
@@ -180,7 +200,6 @@ export default function FormularioItinerario() {
           className="form-select"
           required
         >
-          <option value="null">Seleccione una...</option>
           {lugares.map((lugar) => (
             <option key={lugar._id} value={lugar._id}>
               {lugar.nombre}
@@ -201,7 +220,7 @@ export default function FormularioItinerario() {
         />
 
         <button type="submit" className="mx-5 btn btn-info mt-4">
-          Guardar
+          {id ? "Actualizar" : "Guardar"}
         </button>
       </form>
 

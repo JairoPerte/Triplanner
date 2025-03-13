@@ -8,7 +8,7 @@ export default function EditarViaje() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card mt-4  formulario-viaje">
-            <h1>Organizar un viaje</h1>
+            <h1>Editar un viaje</h1>
             <FormularioItinerario />
           </div>
         </div>

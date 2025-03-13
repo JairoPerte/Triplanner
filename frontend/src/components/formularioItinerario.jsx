@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function FormularioItinerario() {
   const navigate = useNavigate();
   const [lugares, setLugares] = useState([]);
+  const [fechaError, setFechaError] = useState(false);
   const [viaje, setFormData] = useState({
     nombre: "",
     fechaInicio: "",
@@ -47,7 +48,7 @@ export default function FormularioItinerario() {
     const fechaFin = new Date(viaje.fechaFin);
 
     if (fechaFin <= fechaInicio) {
-      alert("La fecha de fin debe ser posterior a la fecha de inicio.");
+      setFechaError(true);
       return;
     }
 
@@ -201,6 +202,34 @@ export default function FormularioItinerario() {
           Guardar
         </button>
       </form>
+
+      {fechaError && (
+        <div className="modal show d-block" tabIndex={-1}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title text-danger">
+                  <i className="bi bi-exclamation-circle"></i> Error de Fechas
+                </h5>
+              </div>
+              <div className="modal-body">
+                <p className="fs-5 fw-bold text-center text-danger">
+                  La fecha de fin debe ser posterior a la fecha de inicio.
+                </p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => setFechaError(false)}
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -16,6 +16,32 @@ export default function Formulario() {
       .catch((error) => console.error("Error al obtener lugares:", error));
   }, []);
 
+  useEffect(() => {
+    let btnFavoritos = document.getElementById("favoritos");
+    let btnTodos = document.getElementById("todos");
+
+    let lugaresTodos = document.getElementsByClassName("accordion-item");
+    let lugaresFavoritos = document.getElementsByClassName("fav");
+
+    if (btnFavoritos && btnTodos) {
+      btnFavoritos.addEventListener("click", () => {
+        for (let i = 0; i < lugaresTodos.length; i++) {
+          lugaresTodos[i].style.display = "none";
+        }
+
+        for (let i = 0; i < lugaresFavoritos.length; i++) {
+          lugaresFavoritos[i].style.display = "block";
+        }
+      });
+
+      btnTodos.addEventListener("click", () => {
+        for (let i = 0; i < lugaresTodos.length; i++) {
+          lugaresTodos[i].style.display = "block";
+        }
+      });
+    }
+  }, [lugares]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!lugarSeleccionado) {
@@ -54,11 +80,15 @@ export default function Formulario() {
   };
 
   return (
-    <div className="container">
+    <div className="container vista-lugares">
       <div className="d-flex justify-content-between">
-        <div className="filtro">
-          <button className="btn btn-secondary">Favoritos</button>
-          <button className="btn btn-secondary mx-3">Todos</button>
+        <div className="filtro mb-2">
+          <button className="btn btn-secondary" id="favoritos">
+            Favoritos
+          </button>
+          <button className="btn btn-secondary mx-3" id="todos">
+            Todos
+          </button>
         </div>
         <a href="#" data-bs-toggle="modal" data-bs-target="#modal">
           Añadir lugar
@@ -67,7 +97,12 @@ export default function Formulario() {
 
       <div className="accordion accordion-flush" id="acordeon">
         {lugares.map((lugar) => (
-          <div className="accordion-item" key={lugar._id}>
+          <div
+            className={`accordion-item ${
+              lugar.favorito === 1 ? "fav" : "no-fav"
+            }`}
+            key={lugar._id}
+          >
             <h2 className="accordion-header">
               <button
                 className="accordion-button collapsed"
@@ -103,26 +138,26 @@ export default function Formulario() {
       </div>
 
       <div
-        class="modal fade"
+        className="modal fade"
         id="modal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Añadir un Lugar
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Cerrar"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <div className="justify-content-center">
                 <div className="card mt-4 ">
                   <FormularioLugares />

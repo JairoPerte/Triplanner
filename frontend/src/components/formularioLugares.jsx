@@ -70,7 +70,7 @@ export default function FormularioLugares() {
         aria-hidden="true"
       >
         <div className="modal-dialog">
-          <div className="modal-content">
+          <div className="modal-content formulario-lugar">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
                 Añadir un Lugar
@@ -83,8 +83,8 @@ export default function FormularioLugares() {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="justify-content-center">
-                <div className="card mt-4 ">
+              <div className="justify-content-center ">
+                <div className="card mt-4 card-body-form">
                   <form
                     onSubmit={handleSubmit}
                     className={modalVisible ? "pe-none opacity-50" : "mt-3"}

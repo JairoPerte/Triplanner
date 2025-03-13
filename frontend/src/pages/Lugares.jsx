@@ -110,11 +110,11 @@ export default function Formulario() {
     <div className="container vista-lugares">
       <div className="d-flex justify-content-between">
         <div className="filtro mb-2">
-          <button className="btn btn-secondary" id="favoritos">
-            Favoritos
-          </button>
-          <button className="btn btn-secondary mx-3" id="todos">
+          <button className="btn btn-secondary" id="todos">
             Todos
+          </button>
+          <button className="btn btn-secondary  mx-3" id="favoritos">
+            Favoritos
           </button>
         </div>
         <a href="#" data-bs-toggle="modal" data-bs-target="#modal">

@@ -109,12 +109,13 @@ body.dark-mode .react-calendar__month-view__days__day--neighboringMonth abbr{
   color: rgb(131, 131, 129);
 }
 
-body.dark-mode .formulario-viaje{
+body.dark-mode .formulario-viaje, 
+body.dark-mode .formulario-lugar{
   background-color: #151515;
   color: white;
 }
 
-body.dark-mode .formulario-viaje input{
+body.dark-mode .formulario-viaje input, body.dark-mode .formulario-lugar input{
   background-color: #1e1e1e;
   border: none;
   color: white;
@@ -132,12 +133,42 @@ body.dark-mode .formulario-viaje select{
   color: white;
 }
 
-body.dark-mode .formulario-viaje label{
+body.dark-mode .formulario-viaje label,
+body.dark-mode .formulario-lugar label{
   color: white !important;
 }
 
-body.dark-mode .formulario-viaje label::after{
+body.dark-mode .formulario-viaje label::after,
+body.dark-mode .formulario-lugar label::after{
   background-color: #1e1e1e !important;
   border: none;
   color: white !important;
+}
+
+body.dark-mode .formulario-lugar .modal-body{
+  background-color:#151515;
+}
+
+body.dark-mode .card-body-form{
+  background-color:#151515;
+}
+
+body.dark-mode .btn-close{
+  background-color: white;
+}
+
+body.dark-mode .accordion-item{
+  background-color: #363636;
+  color: white;
+}
+
+body.dark-mode .accordion-button{
+  background-color: #151515;
+  color: white;
+}
+
+body.dark-mode .list-group-item{
+  background-color: #151515;
+  color: white;
+  border-color: #363636;
 }

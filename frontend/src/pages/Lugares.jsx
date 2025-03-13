@@ -38,9 +38,10 @@ export default function Formulario() {
               data-bs-parent="#acordeon"
             >
               <div className="accordion-body">
-                Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> class. This is the
-                first item's accordion body.
+              <code>{lugar.nombre}</code> pertenece a <code>{lugar.pais}</code> a la ciudad de <code>{lugar.ciudad}</code>  
+                  {lugar.direccion && (
+                    <> y se realiza en <code>{lugar.direccion}</code></>
+                  )}
               </div>
             </div>
           </div>

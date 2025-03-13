@@ -33,6 +33,7 @@ const lugarSchema = new mongoose.Schema(
     pais: String,
     ciudad: String,
     direccion: String,
+    favorito: Number,
   },
   {
     collection: "lugares",

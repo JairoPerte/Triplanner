@@ -6,6 +6,7 @@ export default function FormularioLugares() {
     pais: "",
     ciudad: "",
     direccion: "",
+    favorito: "",
   });
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,6 +36,7 @@ export default function FormularioLugares() {
           pais: "",
           ciudad: "",
           direccion: "",
+          favorito: "",
         });
         setModalVisible(true);
       } else {
@@ -62,14 +64,19 @@ export default function FormularioLugares() {
                   ></button>
                 </div>
                 <div className="modal-body">
-                  <p className="fs-5 fw-bold text-center">¡Lugar guardado con éxito!</p>
+                  <p className="fs-5 fw-bold text-center">
+                    ¡Lugar guardado con éxito!
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </>
       )}
-      <form onSubmit={handleSubmit} className={modalVisible ? "pe-none opacity-50" : "mt-3"}>
+      <form
+        onSubmit={handleSubmit}
+        className={modalVisible ? "pe-none opacity-50" : "mt-3"}
+      >
         <div className="form-floating">
           <input
             type="text"
@@ -107,7 +114,6 @@ export default function FormularioLugares() {
             onChange={handleChange}
             className="form-control"
             placeholder=""
-            required
           />
           <label htmlFor="nombre">Ciudad:</label>
         </div>
@@ -125,6 +131,8 @@ export default function FormularioLugares() {
           <label htmlFor="nombre">Direccion:</label>
         </div>
         <br />
+
+        <input type="hidden" name="favorito" value="0" />
 
         <button type="submit" className="mx-5 btn btn-info mt-4">
           Guardar

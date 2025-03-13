@@ -53,6 +53,7 @@ const Lugar = mongoose.model("Lugar", lugarSchema);
 const Viaje = mongoose.model("Viaje", viajeSchema);
 
 // Rutas de Viajes
+//obtiene todos los viajes
 app.get("/viajes", async (req, res) => {
   try {
     const viajes = await Viaje.find()
@@ -64,6 +65,7 @@ app.get("/viajes", async (req, res) => {
   }
 });
 
+//introduce un viaje nuevo
 app.post("/viajes", async (req, res) => {
   try {
     const { nombre, fechaInicio, fechaFin, notas, color, id_lugar } = req.body;
@@ -82,6 +84,7 @@ app.post("/viajes", async (req, res) => {
   }
 });
 
+//obtiene un viaje específico
 app.get("/viajes/:id", async (req, res) => {
   try {
     const viaje = await Viaje.findById(req.params.id).populate("id_lugar");
@@ -92,6 +95,7 @@ app.get("/viajes/:id", async (req, res) => {
   }
 });
 
+//modifica un viaje específico
 app.put("/viajes/:id", async (req, res) => {
   try {
     const { nombre, fechaInicio, fechaFin, notas, color, id_lugar } = req.body;
@@ -107,6 +111,7 @@ app.put("/viajes/:id", async (req, res) => {
   }
 });
 
+//borra un viaje
 app.delete("/viajes/:id", async (req, res) => {
   try {
     const viaje = await Viaje.findByIdAndDelete(req.params.id);
@@ -117,6 +122,7 @@ app.delete("/viajes/:id", async (req, res) => {
   }
 });
 
+//Modificamos los datos de lugar de un viaje específico
 app.patch("/viajes/:id", async (req, res) => {
   try {
     const { lugarData } = req.body;
@@ -135,7 +141,7 @@ app.patch("/viajes/:id", async (req, res) => {
       lugar.ciudad = ciudad || lugar.ciudad;
       lugar.direccion = direccion || lugar.direccion;
 
-      await lugar.save(); // Guardamos el lugar actualizado
+      await lugar.save();
     }
 
     // Ahora asociamos el lugar actualizado al viaje
@@ -159,6 +165,7 @@ app.patch("/viajes/:id", async (req, res) => {
 });
 
 // Rutas de Lugares
+//obtiene todos los lugares
 app.get("/lugares", async (req, res) => {
   try {
     const lugares = await Lugar.find();
@@ -168,6 +175,7 @@ app.get("/lugares", async (req, res) => {
   }
 });
 
+//añade un lugar
 app.post("/lugares", async (req, res) => {
   try {
     const { nombre, pais, ciudad, direccion, favorito } = req.body;
@@ -179,6 +187,7 @@ app.post("/lugares", async (req, res) => {
   }
 });
 
+//obtiene un lugar específico
 app.get("/lugares/:id", async (req, res) => {
   try {
     const lugar = await Lugar.findById(req.params.id);
@@ -189,6 +198,7 @@ app.get("/lugares/:id", async (req, res) => {
   }
 });
 
+//actualiza un lugar específico
 app.put("/lugares/:id", async (req, res) => {
   try {
     const { nombre, pais, ciudad, direccion, favorito } = req.body;
@@ -211,6 +221,7 @@ app.put("/lugares/:id", async (req, res) => {
   }
 });
 
+//Elimina un lugar específico
 app.delete("/lugares/:id", async (req, res) => {
   try {
     const lugar = await Lugar.findByIdAndDelete(req.params.id);
@@ -242,6 +253,8 @@ app.get("/viajes-lugares/:id", async (req, res) => {
   }
 });
 
+//Ruta que filtra todos los viajes según si la fechaInicio es mayor a fecha
+//devuelve los viajes+lugares cuyas fechaInicio sea mayores a la fecha que se le proporciona
 app.get("/viajes-por-fecha", async (req, res) => {
   try {
     const { fecha } = req.query;
@@ -260,6 +273,6 @@ app.get("/viajes-por-fecha", async (req, res) => {
 
 app.listen(PORT, () =>
   console.log(
-    `🚀 Servidor corriendo en el puerto ${PORT}\n   -> Local: http://localhost:${PORT}`
+    `🚀 Servidor corriendo en el puerto ${PORT}\n  -> A través de localhost:${PORT}`
   )
 );

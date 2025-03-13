@@ -3,9 +3,9 @@ export default function Proximo({ viajes, eliminarViaje }) {
   //ignorar la hora solo la fecha
   hoy.setHours(0, 0, 0, 0);
 
+  //Filtramos para que solo salgan los viajes cuya fecha sea mayor o igual a hoy
   const viajesFiltrados = viajes.filter((viaje) => {
     const fechaInicio = new Date(viaje.fechaInicio);
-    fechaInicio.setHours(0, 0, 0, 0);
     return fechaInicio >= hoy;
   });
 
@@ -13,10 +13,12 @@ export default function Proximo({ viajes, eliminarViaje }) {
     <div className="container mt-4">
       <h2>Lista de Viajes Próximos</h2>
       {viajesFiltrados.length === 0 ? (
+        //Si no hay mostramos:
         <p>No hay viajes disponibles.</p>
       ) : (
         <ul className="list-group">
           {viajesFiltrados.map((viaje) => (
+            //Mostramos los viajes que cumplan con el filtro
             <li key={viaje._id} className="list-group-item d-flex align-items-center">
               <span
                 className="me-3"
@@ -31,7 +33,10 @@ export default function Proximo({ viajes, eliminarViaje }) {
               <div>
                 <strong>{viaje.nombre}</strong> - {viaje.id_lugar?.nombre || "Sin lugar"} {"| " + (viaje.id_lugar?.pais || "")} 
                 <br />
-                <small>Fecha Inicio: {new Date(viaje.fechaInicio).toLocaleDateString("es-ES")}</small>
+                <small>Fecha Inicio: {
+                  // Formatamos la fecha a DD/MM/YYYY
+                  new Date(viaje.fechaInicio).toLocaleDateString("es-ES")
+                }</small>
                 <br />
                 <button class="btn btn-danger btn-sm" onClick={() => eliminarViaje(viaje._id)}>Eliminar</button>
               </div>

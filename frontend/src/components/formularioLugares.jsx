@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 
+//Importamos de assets
+import errorFile from "../assets/audio/error.mp3";
+import notificationFile from "../assets/audio/notification.mp3";
+
 export default function FormularioLugares({ setLugares }) {
+  //Creamos los audios de la Api
+  const error=new Audio(errorFile);
+  const not=new Audio(notificationFile);
+
   const [formData, setFormData] = useState({
     nombre: "",
     pais: "",
@@ -53,11 +61,14 @@ export default function FormularioLugares({ setLugares }) {
           favorito: 0,
         });
         setModalVisible(true);
+        not.play();
       } else {
         console.error("Error al guardar el lugar:", response.status);
+        error.play();
       }
-    } catch (error) {
-      console.error("Error en la petición:", error);
+    } catch (e) {
+      console.error("Error en la petición:", e);
+      error.play();
     }
   };
 

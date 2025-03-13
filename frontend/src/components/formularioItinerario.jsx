@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+//Importamos de assets
+import errorFile from "../assets/audio/error.mp3";
+import notificationFile from "../assets/audio/notification.mp3";
 
 export default function FormularioItinerario() {
+  //Creamos los audios de la Api
+  const error=new Audio(errorFile);
+  const not=new Audio(notificationFile);
+
   const navigate = useNavigate();
   const [lugares, setLugares] = useState([]);
   const [fechaError, setFechaError] = useState(false);
@@ -52,6 +59,7 @@ export default function FormularioItinerario() {
       setTimeout(() => {
         setFechaError(false);
       }, 2000);
+      error.play();
       return;
     }
 
@@ -75,11 +83,14 @@ export default function FormularioItinerario() {
           color: "#000000",
         });
         setModalVisible(true);
+        not.play();
       } else {
+        error.play();
         console.error("Error al guardar el itinerario:", response.status);
       }
-    } catch (error) {
-      console.error("Error en la petición:", error);
+    } catch (e) {
+      error.play();
+      console.error("Error en la petición:", e);
     }
   };
 

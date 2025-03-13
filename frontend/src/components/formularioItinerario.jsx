@@ -49,6 +49,9 @@ export default function FormularioItinerario() {
 
     if (fechaFin <= fechaInicio) {
       setFechaError(true);
+      setTimeout(() => {
+        setFechaError(false);
+      }, 2000);
       return;
     }
 

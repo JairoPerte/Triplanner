@@ -47,7 +47,7 @@ export default function FormularioItinerario() {
         },
         body: JSON.stringify(viaje),
       });
-      
+
       if (response.ok) {
         setFormData({
           nombre: "",
@@ -83,7 +83,9 @@ export default function FormularioItinerario() {
                   ></button>
                 </div>
                 <div className="modal-body">
-                  <p className="fs-5 fw-bold text-center">¡Viaje guardado con éxito!</p>
+                  <p className="fs-5 fw-bold text-center">
+                    ¡Viaje guardado con éxito!
+                  </p>
                 </div>
               </div>
             </div>
@@ -91,7 +93,10 @@ export default function FormularioItinerario() {
         </>
       )}
 
-      <form onSubmit={handleSubmit} className={modalVisible ? "pe-none opacity-50" : "mt-3"}>
+      <form
+        onSubmit={handleSubmit}
+        className={modalVisible ? "pe-none opacity-50" : "mt-3"}
+      >
         <div className="form-floating">
           <input
             type="text"
@@ -105,7 +110,7 @@ export default function FormularioItinerario() {
           <label htmlFor="nombre">Nombre:</label>
         </div>
 
-        <br/>
+        <br />
 
         <div className="form-floating">
           <input
@@ -120,7 +125,7 @@ export default function FormularioItinerario() {
           <label htmlFor="fechaInicio">Fecha de inicio: </label>
         </div>
 
-        <br/>
+        <br />
 
         <div className="form-floating">
           <input
@@ -135,7 +140,7 @@ export default function FormularioItinerario() {
           <label htmlFor="fechaFin">Fecha de fin: </label>
         </div>
 
-        <br/>
+        <br />
 
         <div className="form-floating">
           <textarea
@@ -149,7 +154,7 @@ export default function FormularioItinerario() {
           <label htmlFor="notas">Notas generales: </label>
         </div>
 
-        <br/>
+        <br />
 
         <select
           name="id_lugar"
@@ -167,8 +172,8 @@ export default function FormularioItinerario() {
           ))}
         </select>
 
-        <br/>
-        
+        <br />
+
         <input
           type="color"
           name="color"

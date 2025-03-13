@@ -108,3 +108,36 @@ body.dark-mode .react-calendar__tile--now{
 body.dark-mode .react-calendar__month-view__days__day--neighboringMonth abbr{
   color: rgb(131, 131, 129);
 }
+
+body.dark-mode .formulario-viaje{
+  background-color: #151515;
+  color: white;
+}
+
+body.dark-mode .formulario-viaje input{
+  background-color: #1e1e1e;
+  border: none;
+  color: white;
+}
+
+body.dark-mode .formulario-viaje textarea{
+  background-color: #1e1e1e;
+  border: none;
+  color: white;
+}
+
+body.dark-mode .formulario-viaje select{
+  background-color: #1e1e1e;
+  border: none;
+  color: white;
+}
+
+body.dark-mode .formulario-viaje label{
+  color: white !important;
+}
+
+body.dark-mode .formulario-viaje label::after{
+  background-color: #1e1e1e !important;
+  border: none;
+  color: white !important;
+}

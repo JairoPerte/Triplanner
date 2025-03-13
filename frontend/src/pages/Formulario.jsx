@@ -7,7 +7,7 @@ export default function Formulario() {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card mt-4 ">
+          <div className="card mt-4  formulario-viaje">
             <h1>Organizar un viaje</h1>
             <FormularioItinerario />
           </div>

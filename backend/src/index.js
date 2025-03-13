@@ -67,9 +67,10 @@ app.get("/viajes", async (req, res) => {
 app.post("/viajes", async (req, res) => {
   try {
     const { nombre, fechaInicio, fechaFin, notas, color, id_lugar } = req.body;
+    const fechaIniUTC = new Date(fechaInicio).toISOString().split("T")[0];
     const viaje = new Viaje({
       nombre,
-      fechaInicio,
+      fechaIniUTC,
       fechaFin,
       notas,
       color,

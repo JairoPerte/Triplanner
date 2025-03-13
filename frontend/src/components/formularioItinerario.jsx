@@ -166,7 +166,6 @@ export default function FormularioItinerario() {
             value={viaje.notas}
             onChange={handleChange}
             className="form-control"
-            required
           ></textarea>
           <label htmlFor="notas">Notas generales: </label>
         </div>

@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from "react";
+export default function Proximo({ viajes, eliminarViaje }) {
+  const hoy = new Date();
+  //ignorar la hora solo la fecha
+  hoy.setHours(0, 0, 0, 0);
 
-export default function Proximo() {
-  const [viajes, setViajes] = useState([]);
-
-  useEffect(() => {
-    const fechaHoy = new Date().toISOString().split("T")[0];
-    const backendURL = import.meta.env.VITE_API_HOST;
-
-    fetch(`${backendURL}/viajes-por-fecha?fecha=${fechaHoy}`)
-      .then((res) => res.json())
-      .then((data) => setViajes(data))
-      .catch((error) => console.error("Error al obtener viajes:", error));
-  }, []);
+  const viajesFiltrados = viajes.filter((viaje) => {
+    const fechaInicio = new Date(viaje.fechaInicio);
+    fechaInicio.setHours(0, 0, 0, 0);
+    return fechaInicio >= hoy;
+  });
 
   return (
     <div className="container mt-4">
       <h2>Lista de Viajes Próximos</h2>
-      {viajes.length === 0 ? (
+      {viajesFiltrados.length === 0 ? (
         <p>No hay viajes disponibles.</p>
       ) : (
         <ul className="list-group">
-          {viajes.map((viaje) => (
+          {viajesFiltrados.map((viaje) => (
             <li key={viaje._id} className="list-group-item d-flex align-items-center">
               <span
                 className="me-3"
@@ -33,9 +29,11 @@ export default function Proximo() {
                 }}
               ></span>
               <div>
-                <strong>{viaje.nombre}</strong> - {viaje.id_lugar?.nombre || "Sin lugar"} {"| "+viaje.id_lugar?.pais || ""} 
+                <strong>{viaje.nombre}</strong> - {viaje.id_lugar?.nombre || "Sin lugar"} {"| " + (viaje.id_lugar?.pais || "")} 
                 <br />
-                <small>Fecha Inicio: {new Date(viaje.fechaInicio).toLocaleDateString()}</small>
+                <small>Fecha Inicio: {new Date(viaje.fechaInicio).toLocaleDateString("es-ES")}</small>
+                <br />
+                <button class="btn btn-danger btn-sm" onClick={() => eliminarViaje(viaje._id)}>Eliminar</button>
               </div>
             </li>
           ))}

@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../styles/calendario.css";
 
-const Calendario = () => {
+const Calendario = ({ viajes }) => {
   const [date, setDate] = useState(new Date());
-  const [viajes, setViajes] = useState([]);
 
-  useEffect(() => {
-    const backendURL = import.meta.env.VITE_API_HOST;
-
-    fetch(`${backendURL}/viajes`)
-      .then((res) => res.json())
-      .then((data) => setViajes(data))
-      .catch((error) => console.error("Error al obtener viajes:", error));
-  }, []);
-
-  // Función para verificar si un color es oscuro o claro
   const esColorOscuro = (hex) => {
     if (!hex) return false;
     const hexValue = hex.replace("#", "");
@@ -24,23 +13,21 @@ const Calendario = () => {
     const g = parseInt(hexValue.substring(2, 4), 16);
     const b = parseInt(hexValue.substring(4, 6), 16);
 
-    // Cálculo de luminancia relativa
     const luminancia = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return luminancia < 0.5; // Si es menor a 0.5, es un color oscuro
+    return luminancia < 0.5;
   };
 
-  // Función para obtener los eventos en un día específico
   const getEventosParaFecha = (date) => {
     return viajes
       .filter((viaje) => {
         const fechaInicio = new Date(viaje.fechaInicio);
+        fechaInicio.setHours(0,0,0);
         const fechaFin = new Date(viaje.fechaFin);
         return date >= fechaInicio && date <= fechaFin;
       })
       .sort((a, b) => new Date(a.fechaInicio) - new Date(b.fechaInicio));
   };
 
-  // Personalizar los días del calendario
   const tileContent = ({ date, view }) => {
     if (view === "month") {
       const eventosDelDia = getEventosParaFecha(date);

@@ -170,8 +170,8 @@ app.get("/lugares", async (req, res) => {
 
 app.post("/lugares", async (req, res) => {
   try {
-    const { nombre, pais, ciudad, direccion } = req.body;
-    const lugar = new Lugar({ nombre, pais, ciudad, direccion });
+    const { nombre, pais, ciudad, direccion, favorito } = req.body;
+    const lugar = new Lugar({ nombre, pais, ciudad, direccion, favorito });
     await lugar.save();
     res.status(201).json(lugar);
   } catch (error) {
@@ -191,12 +191,12 @@ app.get("/lugares/:id", async (req, res) => {
 
 app.put("/lugares/:id", async (req, res) => {
   try {
-    const { nombre, pais, ciudad, direccion } = req.body;
+    const { nombre, pais, ciudad, direccion, favorito } = req.body;
 
     // Actualizar el lugar en la base de datos
     const lugar = await Lugar.findByIdAndUpdate(
       req.params.id,
-      { nombre, pais, ciudad, direccion },
+      { nombre, pais, ciudad, direccion, favorito },
       { new: true } // Retorna el lugar actualizado
     );
 

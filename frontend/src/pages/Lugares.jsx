@@ -5,6 +5,8 @@ import "../styles/index.css";
 
 export default function Formulario() {
   const [lugares, setLugares] = useState([]);
+  const [lugarSeleccionado, setLugarSeleccionado] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const backendURL = import.meta.env.VITE_API_HOST;
@@ -16,20 +18,32 @@ export default function Formulario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!lugarSeleccionado) {
+      console.error("No se ha seleccionado ningún lugar.");
+      return;
+    }
+
     try {
       const backendURL = import.meta.env.VITE_API_HOST;
-      const response = await fetch(`${backendURL}/lugares/${lugar._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${backendURL}/lugares/${lugarSeleccionado._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ favorito: 1 }),
+        }
+      );
 
       if (response.ok) {
-        setFormData({
-          favorito: "",
-        });
+        setLugares((prevLugares) =>
+          prevLugares.map((lugar) =>
+            lugar._id === lugarSeleccionado._id
+              ? { ...lugar, favorito: 1 }
+              : lugar
+          )
+        );
         setModalVisible(true);
       } else {
         console.error("Error al guardar el lugar:", response.status);
@@ -74,8 +88,13 @@ export default function Formulario() {
               <div className="accordion-body">
                 {lugar.pais} - {lugar.ciudad} - {lugar.direccion}
                 <form onSubmit={handleSubmit}>
-                  <input type="hidden" name="favorito" value="1" />
-                  <button type="submit"></button>
+                  <input type="hidden" name="favorito" value="1" required />
+                  <button
+                    type="submit"
+                    onClick={() => setLugarSeleccionado(lugar)}
+                  >
+                    Fav
+                  </button>
                 </form>
               </div>
             </div>
@@ -94,7 +113,7 @@ export default function Formulario() {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                Título del Modal
+                Añadir un Lugar
               </h5>
               <button
                 type="button"
@@ -106,7 +125,6 @@ export default function Formulario() {
             <div class="modal-body">
               <div className="justify-content-center">
                 <div className="card mt-4 ">
-                  <h1>Añadir un Lugar</h1>
                   <FormularioLugares />
                 </div>
               </div>

@@ -6,7 +6,7 @@ export default function FormularioLugares() {
     pais: "",
     ciudad: "",
     direccion: "",
-    favorito: "",
+    favorito: 0,
   });
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,7 +36,7 @@ export default function FormularioLugares() {
           pais: "",
           ciudad: "",
           direccion: "",
-          favorito: "",
+          favorito: 0,
         });
         setModalVisible(true);
       } else {
@@ -132,7 +132,7 @@ export default function FormularioLugares() {
         </div>
         <br />
 
-        <input type="hidden" name="favorito" value="0" />
+        <input type="hidden" name="favorito" value="0" required />
 
         <button type="submit" className="mx-5 btn btn-info mt-4">
           Guardar

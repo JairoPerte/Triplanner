@@ -37,6 +37,16 @@ body.dark-mode  {
 
 .react-calendar__tile{
   border-radius: 15px;
+  font-weight: bolder;
+}
+
+.custom-calendar{
+  background-color: aliceblue;
+  padding: 5px;
+}
+
+.react-calendar__tile{
+  background-color: white;
 }
 
 body.dark-mode .custom-calendar{
@@ -44,8 +54,40 @@ body.dark-mode .custom-calendar{
   color: white;
 }
 
-body.dark-mode abbr{
+body.dark-mode .custom-calendar abbr{
   color: white;
+}
+
+body.dark-mode .react-calendar__tile:hover{
+  color: black;
+}
+
+body.dark-mode .react-calendar__navigation__label:hover{
+  background: #202020;
+}
+
+body.dark-mode .react-calendar__navigation__label:focus{
+  background: #202020;
+}
+
+body.dark-mode .react-calendar__navigation__arrow:hover{
+  background-color: #202020;
+}
+
+body.dark-mode .react-calendar__navigation__arrow{
+  color: white;
+}
+
+body.dark-mode .react-calendar__navigation__prev2-button{
+  border-top-left-radius: 15px;
+}
+
+body.dark-mode .react-calendar__navigation__next2-button{
+  border-top-right-radius: 15px;
+}
+
+body.dark-mode .react-calendar__navigation__label__labelText{
+  color: white !important;
 }
 
 body.dark-mode .react-calendar__month-view__days__day--weekend abbr{
@@ -54,4 +96,13 @@ body.dark-mode .react-calendar__month-view__days__day--weekend abbr{
 
 body.dark-mode .react-calendar__tile{
   background-color: #151515;
+}
+
+body.dark-mode .react-calendar__tile--now{
+  background-color: rgb(86, 140, 140);
+  color: black;
+}
+
+body.dark-mode .react-calendar__month-view__days__day--neighboringMonth abbr{
+  color: rgb(131, 131, 129);
 }

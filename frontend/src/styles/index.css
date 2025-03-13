@@ -176,3 +176,7 @@ body.dark-mode .list-group-item{
 body.dark-mode .modal-content{
   background-color: #121212;
 }
+
+.react-calendar__tile--now{
+  background-color: rgb(98, 155, 246);
+}

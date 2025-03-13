@@ -73,6 +73,7 @@ const Calendario = () => {
         value={date}
         tileContent={tileContent}
         className="custom-calendar"
+        id="calendario"
       />
     </div>
   );

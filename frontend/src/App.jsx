@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { ViajeProvider } from "./context/contextoViaje";
 import "./styles/App.css";
@@ -7,9 +7,25 @@ import Lugares from "./pages/Lugares";
 import Formulario from "./pages/Formulario";
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode) => !prevMode);
+  };
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
+
   return (
     <Router>
-      <div className="d-flex flex-column justify-content-between contenedor-main pt-4">
+      <div
+        className={`d-flex flex-column justify-content-between contenedor-main pt-4 `}
+      >
         <div className="d-flex justify-content-between bg-dark py-3 px-5 rounded-5">
           <Link to="/" className="text-light text-decoration-none">
             <h1>Triplanner</h1>
@@ -41,8 +57,18 @@ function App() {
           </Routes>
         </div>
 
-        <footer className="rounded-top-5 bg-dark text-light">
+        <footer className="rounded-top-5 bg-dark text-light d-flex justify-content-between px-4">
           <p>&copy; 2025 Triplanner - Todos los derechos reservados.</p>
+          <button
+            className="btn btn-secondary mb-3 rounded-5"
+            onClick={toggleDarkMode}
+          >
+            {darkMode ? (
+              <i className="bi bi-sun"></i>
+            ) : (
+              <i className="bi bi-moon"></i>
+            )}
+          </button>
         </footer>
       </div>
     </Router>
